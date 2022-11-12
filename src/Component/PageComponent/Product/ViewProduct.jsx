@@ -74,11 +74,14 @@ function ViewProduct({ showProduct, searchText }) {
                 </div>
               </td>
               <td className="border-b p-2 text-center">{val.quantity}</td>
+              
               <td className="border-b p-2 text-center">
-                <div className="">{val.product_category} </div>
+                <div className="">{val.priceandunit?.map((val,i)=>{
+                  return <div>{val.product_price}({val.product_unit})</div>
+                })} </div>
               </td>
               <td className="border-b p-2 text-center">
-                <div className="">{val.price} </div>
+                <div className="">{val.desc} </div>
               </td>
               <td className="border-b p-2 text-center border-r">
                 <div className="flex gap-3 items-center justify-center text-white font-semibold ">

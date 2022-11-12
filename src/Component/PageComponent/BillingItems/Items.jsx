@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdGradient } from "react-icons/md";
 import image1 from "../../Resources/images/japan.jpg";
-function Items() {
+import axios from "../../../Hoc/Axios/CreateAxios";
+
+function Items({OrderFood}) {
   const [filterData, setFilterData] = useState("");
+  const [Tbody, setTbody] = useState([]);
 
   const showFilter = (e) => {
+   
     setFilterData(e.target.value);
   };
   const Filter = (options) => {
@@ -15,6 +19,20 @@ function Items() {
     });
   };
 
+  const getCategory = () => {
+    axios
+      .get("product")
+      .then((res) => {
+        console.log(res);
+        setTbody(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getCategory();
+  }, []);
   const data = [
     { name: "nischal ", category: "naam", image: image1 },
     { name: "karki", category: "surnaam", image: image1 },
@@ -44,10 +62,11 @@ function Items() {
         className="grid grid-cols-3 laptop:grid-cols-3 desktopS:grid-cols-5 gap-3  border border-black border-opacity-25 bg-gray-100 
       h-128 overflow-y-auto scroll w-11/12  p-2 "
       >
-        {Filter(data).map((val, i) => {
+        {Tbody.map((val, i) => {
           return (
             <div
               key={i}
+              onClick={()=>OrderFood(val)}
               className=" h-fit   flex   justify-center   items-center"
               style={{
                 backgroundImage: `linear-gradient(0deg, rgba(2,10,20,0.4) 20%, rgba(0,2,20,0.6) 55%, rgba(1,2,1,0.5) 80%, rgba(1,2,3,0.5) 100%),url(${val.image})`,
@@ -65,7 +84,7 @@ function Items() {
                  font-bold  text-lg  
               "
               >
-                {val.name}
+                {val.product_name}
               </div>
             </div>
           );

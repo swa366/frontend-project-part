@@ -32,16 +32,6 @@ import {
       icon: <MdOutlineProductionQuantityLimits className="w-6 h-6" />,
     },
     {
-      title: "Service",
-      path: "/service",
-      icon: <MdMiscellaneousServices className="w-6 h-6" />,
-    },
-    {
-      title: "Special Offers",
-      path: "/specialOffers",
-      icon: <FaGifts className="w-6 h-6" />,
-    },
-    {
       title: "Customers",
       path: "/customers",
       icon: <MdConnectWithoutContact className="w-6 h-6" />,
@@ -56,9 +46,9 @@ import {
       path: "/staff",
       icon: <MdEmojiPeople className="w-6 h-6" />,
     },
-    {
-      title: "Download_Reports",
-      path: "/downloadReports",
-      icon: <IoMdCloudDownload className="w-6 h-6" />,
-    },
+    // {
+    //   title: "Download_Reports",
+    //   path: "/downloadReports",
+    //   icon: <IoMdCloudDownload className="w-6 h-6" />,
+    // },
   ];

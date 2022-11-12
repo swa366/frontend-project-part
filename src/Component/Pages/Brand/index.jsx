@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../../Hoc/Axios/CreateAxios";
 import AddBrand from "../../PageComponent/Brand/AddBrand";
 import ViewBrand from "../../PageComponent/Brand/ViewBrand";
-// import SecondaryHeader from "../../UI/SecondaryHeader/SecondaryHeader";
+import SecondaryHeader from "../../UI/SecondaryHeader/SecondartHeader";
 // import SecondaryHeaderSmallDev from "../../UI/SecondaryHeader/SecondaryHeaderSmallDev";
 function Brand() {
   const [showData, setShowData] = useState("Add");
@@ -30,13 +30,13 @@ function Brand() {
   }, []);
   return (
     <div>
-      {/* <SecondaryHeader
+      <SecondaryHeader
         setShowData={setShowData}
         showData={showData}
         addBtn="AddBrand"
         viewBtn="ViewBrand"
         SearchText={SearchText}
-      /> */}
+      />
       {showData === "Add" ? (
         <AddBrand setShowData={setShowData} getBrand={getBrand} />
       ) : (

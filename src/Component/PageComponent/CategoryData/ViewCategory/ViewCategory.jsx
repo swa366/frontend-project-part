@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import image from "../../../Resources/images/profile.jpg";
 import { MdDelete, MdEdit } from "react-icons/md";
 import Table from "../../../UI/Table/Table";
-import axios from "axios";
+import axios from "../../../../Hoc/Axios/CreateAxios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function ViewCategory({ showCategory, searchText }) {
   const [Tbody, setTbody] = useState([]);
   const getCategory = () => {
     axios
-      .get("/category")
+      .get("category")
       .then((res) => {
         console.log(res);
         setTbody(res.data.data);

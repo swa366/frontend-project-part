@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "../../../Hoc/Axios/CreateAxios";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import storage from "../../../Hoc/FIREBASE/FIREBASE.jsx";
+// import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+// import storage from "../../../Hoc/FIREBASE/FIREBASE.jsx";
 import Table from "../../UI/Table/Table";
 import { MdAdd, MdDelete } from "react-icons/md";
 
@@ -63,7 +63,7 @@ function AddProduct({ setShowProduct }) {
   const getBrand = () => {
     try {
       axios
-        .get("/brand")
+        .get("brand")
         .then((res) => {
           console.log(res);
           setBrand(res.data.data);
@@ -82,13 +82,13 @@ function AddProduct({ setShowProduct }) {
   brand.map((val, i) => {
     let storeBrandData = {
       id: val._id,
-      value: val.Brand_name,
+      value: val.brand_name,
     };
     BrandOptions.push(storeBrandData);
   });
   const getCategory = () => {
     axios
-      .get("/category")
+      .get("category")
       .then((res) => {
         console.log(res);
         setCategory(res.data.data);
@@ -123,14 +123,14 @@ function AddProduct({ setShowProduct }) {
       apiKey: "product_brand",
       placeholder: "Enter product brand here !",
       type: "select",
-      options: [{ value: "work", id: "work" }, ...BrandOptions],
+      options: [{ value: "Select Brand", id: "work" }, ...BrandOptions],
     },
     {
       label: "Category",
       apiKey: "product_Category",
       placeholder: "Enter product category here !",
       type: "select",
-      options: [{ value: "work", id: "work" }, ...CategoryOptions],
+      options: [{ value: "Select Category", id: "work" }, ...CategoryOptions],
     },
 
     {
@@ -158,57 +158,69 @@ function AddProduct({ setShowProduct }) {
   const Submit = (val) => {
     console.log(val);
     try {
-      setprogressShow(true);
-      const fileName = new Date().getTime() + val.Brand_name;
-      const storageRef = ref(storage, ` /image/${fileName}`);
-      const UploadTask = uploadBytesResumable(storageRef, val.image);
-      UploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const uploaded = Math.floor(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setprogress(uploaded);
-          if (progress === 100) {
-            // Navigate("/category");
-          }
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => {
-          getDownloadURL(UploadTask.snapshot.ref).then((url) => {
-            // handleInputeState(name,url);
-            console.log(url);
-            try {
-              val.image = url;
-              val.priceandunit = Tbody;
-              val.desc = Description;
-              axios
-                .post(`${process.env.REACT_APP_API_URL}/product`, val, {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                })
-                .then((res) => {
-                  console.log(res);
-                  setprogressShow(false);
-                  // Navigate("/category");
-                })
-                .catch((err) => {
-                  console.log(err);
-                  setprogressShow(false);
-                });
-            } catch (err) {
-              console.log(err);
-            }
-          });
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      val.priceandunit = Tbody;
+      val.desc = Description;
+      val.image="https://images.unsplash.com/photo-1667797314158-7efc70aaeb91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDN8eGpQUjRobGtCR0F8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+      axios.post("product",val).then(res=>{
+       console.log(res)
+      }).catch(error=>{
+       console.log(error)
+      })
+     } catch (error) {
+     console.log(error)  
+     }
+  //   try {
+  //     setprogressShow(true);
+  //     const fileName = new Date().getTime() + val.Brand_name;
+  //     const storageRef = ref(storage, ` /image/${fileName}`);
+  //     const UploadTask = uploadBytesResumable(storageRef, val.image);
+  //     UploadTask.on(
+  //       "state_changed",
+  //       (snapshot) => {
+  //         const uploaded = Math.floor(
+  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //         );
+  //         setprogress(uploaded);
+  //         if (progress === 100) {
+  //           // Navigate("/category");
+  //         }
+  //       },
+  //       (err) => {
+  //         console.log(err);
+  //       },
+  //       () => {
+  //         getDownloadURL(UploadTask.snapshot.ref).then((url) => {
+  //           // handleInputeState(name,url);
+  //           console.log(url);
+  //           try {
+  //             val.image = url;
+  //            val.pric eandunit = Tbody;
+  //             val.desc = Description;
+  //             axios
+  //               .post(`${process.env.REACT_APP_API_URL}/Product`, val, {
+  //                 headers: {
+  //                   "Content-Type": "application/json",
+  //                 },
+  //               })
+  //               .then((res) => {
+  //                 console.log(res);
+  //                 setprogressShow(false);
+  //                 // Navigate("/category");
+  //               })
+  //               .catch((err) => {
+  //                 console.log(err);
+  //                 setprogressShow(false);
+  //               });
+  //           } catch (err) {
+  //             console.log(err);
+  //           }
+  //         });
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+   };
   let Spinner;
   if (progressShow) {
     Spinner = (
@@ -229,7 +241,17 @@ function AddProduct({ setShowProduct }) {
     console.log(value, Tbody);
     setTbody([...Tbody, value]);
     resetForm();
-  };
+    try {
+      value.image="https://images.unsplash.com/photo-1667797314158-7efc70aaeb91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDN8eGpQUjRobGtCR0F8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+      axios.post("Product",value).then(res=>{
+       console.log(res)
+      }).catch(error=>{
+       console.log(error)
+      })
+     } catch (error) {
+     console.log(error)  
+     }
+   };
 
   const DeleteTableData = (id) => {
     Tbody.splice(id, 1);

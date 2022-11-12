@@ -1,10 +1,13 @@
+
 import React from "react";
 import { Formik, Field, Form } from "formik";
 import { IoIosPeople } from "react-icons/io";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { HiLocationMarker } from "react-icons/hi";
+import axios from "../../../Hoc/Axios/CreateAxios";
 
-function BillingForm() {
+function BillingForm({setCustomerinfo}) {
+  
   const billingFormData = [
     {
       type: "text",
@@ -30,10 +33,32 @@ function BillingForm() {
         },
       ],
     },
+    {
+      type: "text",
+      placeholder: "email ",
+      apikey: "email",
+      label: "Email",
+      icon: <BsFillTelephoneFill className="h-5 w-5 " />,
+    },
   ];
-  const submit = () => {
-    console.log(7);
+  const submit = (val) => {
+    // console.log(7);
+    console.log(val);
+    try {
+     val.image="https://images.unsplash.com/photo-1667797314158-7efc70aaeb91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDN8eGpQUjRobGtCR0F8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+     axios.post("customer",val).then(res=>{
+      console.log(res)
+      setCustomerinfo(val)
+     }).catch(error=>{
+      console.log(error)
+     })
+    } catch (error) {
+    console.log(error)  
+    }
   };
+
+  
+
   return (
     <div className=" mt-8  mobileL:mt-4">
       <Formik
@@ -41,14 +66,16 @@ function BillingForm() {
           customer_name: "",
           address: "",
           phone_no: "",
+          email:"",
         }}
         // validationSchema={loginFormDataSchema}
         onSubmit={(values) => {
-          console.log(values);
+          console.log(values, "part");
+          submit(values)
         }}
       >
-        {({ values, initialErrors, touched, handleSumit, isSubmitting }) => (
-          <Form>
+        {({ values, initialErrors, touched, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
             <div className={`   gap-6`}>
               {billingFormData.map((val, i) => {
                 if (val.sub) {
@@ -114,15 +141,14 @@ function BillingForm() {
                 }
               })}
             </div>
-            {/* <div className="my-5">
+            <div className="my-5">
         <button
           type="submit"
           className="bg-green-400 px-4 py-1 rounded-sm text-white font-semibold"
-          onClick={() => submit()}
         >
           Submit
         </button>
-      </div> */}
+      </div>
           </Form>
         )}
       </Formik>

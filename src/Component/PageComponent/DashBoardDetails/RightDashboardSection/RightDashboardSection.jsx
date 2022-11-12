@@ -48,7 +48,7 @@ function RightDashboardSection() {
         <div className="">
           <div className=" font-bold">
             Get the best with{" "}
-            <div className="text-blue-800 text-3xl">DreamSalon</div>
+            <div className="text-blue-800 text-3xl">OnlineShop</div>
           </div>
           <div className="text-gray-600 text-sm font-semibold my-1">
             business section

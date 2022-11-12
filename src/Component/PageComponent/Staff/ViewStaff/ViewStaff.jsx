@@ -1,50 +1,12 @@
-import React, { useState } from "react";
-import image from "../../../Resources/images/japan.jpg";
+import React, { useState,useEffect } from "react";
+// import image from "../../../Resources/images/japan.jpg";
 import { MdDelete, MdEdit } from "react-icons/md";
 import Table from "../../../UI/Table/Table";
+import axios from "../../../../Hoc/Axios/CreateAxios";
 
 function ViewStaff({ showProduct }) {
   const [Tbody, setTbody] = useState([
-    {
-      staff_name: "nischal karki",
-      address: "butwal",
-      phone_no: "9856354253",
-      salary: "30000",
-      email: "nischal@gmail.com",
-      image1: image,
-    },
-    {
-      staff_name: "nischal karki",
-      address: "butwal",
-      phone_no: "9856354253",
-      salary: "30000",
-      email: "nischal1661@gmail.com",
-      image1: image,
-    },
-    {
-      staff_name: "nischal karki",
-      address: "shankarnagar",
-      phone_no: "9856354253",
-      salary: "30000",
-      email: "nischalkarki1661@gmail.com",
-      image1: image,
-    },
-    {
-      staff_name: "nischal karki",
-      address: "butwal",
-      phone_no: "9856354253",
-      salary: "30000",
-      email: "nischalkarki1661@gmail.com",
-      image1: image,
-    },
-    {
-      staff_name: "nischal karki",
-      address: "butwal",
-      phone_no: "9856354253",
-      salary: "30000",
-      email: "nischalkarki@gmail.com",
-      image1: image,
-    },
+   
   ]);
   const tHead = [
     { title: "s.nO", width: "10%" },
@@ -60,6 +22,21 @@ function ViewStaff({ showProduct }) {
     console.log(id);
   };
 
+  const getCategory = () => {
+    axios
+      .get("staff")
+      .then((res) => {
+        console.log(res);
+        setTbody(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getCategory();
+  }, []);
+
   return (
     <div className=" p-6">
       <Table celspacing={0} cellPadding={0} Head={tHead}>
@@ -73,7 +50,7 @@ function ViewStaff({ showProduct }) {
               <td className="border-b p-2 ">
                 <div className="flex justify-center ">
                   <img
-                    src={val.image1}
+                    src={val.employee_img}
                     alt="loading ..."
                     height="50px"
                     width="50px"

@@ -3,10 +3,30 @@ import BillingTable from "../../PageComponent/BillingTable/BillingTable";
 import { useLocation } from "react-router-dom";
 import BillingForm from "../../PageComponent/BillingForm/BillingForm";
 import Items from "../../PageComponent/BillingItems/Items";
+import { useState } from "react";
 
 function Billing() {
   const location = useLocation();
   console.log("location", location);
+  const [Customerinfo, setCustomerinfo] = useState([])
+  const [OrderList, setOrderList] = useState([])
+  const Receive=(values)=>{
+    console.log (values)
+    let data={
+      product_name:values.product_name,
+      quantity:1,
+      unit:values.priceandunit[0].product_unit,
+      price:values.priceandunit[0].product_price,
+      total:values.priceandunit[0].product_price,
+    }
+
+    setOrderList((previous)=>{
+      return [...previous,data]
+    })
+
+
+
+  }
   const tabs = [
     {
       title: "product",
@@ -52,11 +72,12 @@ function Billing() {
       >
         <div className="col-span-1">
           {" "}
-          <Items />
+          <Items OrderFood = {Receive} />
         </div>
         <div className="col-span-1">
-          <BillingForm />
-          <BillingTable />
+          <BillingForm  setCustomerinfo={setCustomerinfo}/>
+
+          <BillingTable  OrderList={OrderList} Customerinfo={Customerinfo}/>
         </div>
       </div>
     </div>

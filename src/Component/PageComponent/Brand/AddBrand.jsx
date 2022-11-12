@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import axios from "axios";
+import axios from "../../../Hoc/Axios/CreateAxios";
 // import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 // import storage from "../../../HOC/FIREBASE/FIREBASE.jsx";
 import { ToastContainer, toast } from "react-toastify";
@@ -44,6 +44,16 @@ function AddBrand({ setShowData, getBrand }) {
 
   const Submit = (val, resetForm) => {
     console.log(val);
+    try {
+      val.image="https://images.unsplash.com/photo-1667797314158-7efc70aaeb91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDN8eGpQUjRobGtCR0F8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+      axios.post("brand",val).then(res=>{
+       console.log(res)
+      }).catch(error=>{
+       console.log(error)
+      })
+     } catch (error) {
+     console.log(error)  
+     }
     // try {
     //   setprogressShow(true);
     //   const fileName = new Date().getTime() + val.Brand_name;
@@ -138,9 +148,9 @@ function AddBrand({ setShowData, getBrand }) {
           }}
           onSubmit={(values, { resetForm }) => {
             console.log(values);
-            let val = Submit(values, resetForm);
+             Submit(values, resetForm);
             // resetForm();
-            console.log(val, "sjdhshd");
+            // console.log(val, "sjdhshd");
           }}
         >
           {({ isSubmitting, handleSubmit, values, setFieldValue }) => {

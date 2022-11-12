@@ -1,33 +1,12 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import Table from "../../../UI/Table/Table";
+import axios from "../../../../Hoc/Axios/CreateAxios";
+
 
 function ViewCustomers({ showProduct }) {
   const [Tbody, setTbody] = useState([
-    {
-      customer_name: "nischal karki1",
-      address: "butwal",
-      phone_no: "9856354253",
-      email: "nischalkarki1661@gmail.com",
-    },
-    {
-      customer_name: "nischal karki2",
-      address: "butwal",
-      phone_no: "9856354253",
-      email: "nischalkarki1661@gmail.com",
-    },
-    {
-      customer_name: "nischal karki3",
-      address: "butwal",
-      phone_no: "9856354253",
-      email: "nischalkarki1661@gmail.com",
-    },
-    {
-      customer_name: "nischal karki4",
-      address: "butwal",
-      phone_no: "9856354253",
-      email: "nischalkarki1661@gmail.com",
-    },
+    
   ]);
   const tHead = [
     { title: "s.nO", width: "10%" },
@@ -43,6 +22,22 @@ function ViewCustomers({ showProduct }) {
     setTbody([...deleted]);
     console.log([...deleted]);
   };
+
+  const getCustomer = () => {
+    axios
+      .get("customer")
+      .then((res) => {
+        console.log(res);
+        setTbody(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getCustomer();
+  }, []);
+
 
   return (
     <div className=" p-6">

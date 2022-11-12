@@ -15,6 +15,7 @@ import Staff from "../Component/Pages/Staff";
 import Customer from "../Component/Pages/Customer";
 import DashBoard from "../Component/Pages/Dashboard";
 import Product from "../Component/Pages/Product";
+import Sales from "../Component/Pages/Sales";
 function App() {
   return (
     <div className="App">
@@ -32,6 +33,7 @@ function App() {
             <Route to exact path="/billing" element={<Billing />} />
             <Route to exact path="/customers" element={<Customer />} />
             <Route to exact path="/staff" element={<Staff />} />
+            <Route to exact path="/sales" element={<Sales />} />
           </Routes>
         </Layout>
           {/* <Routes>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddCategory from "../../PageComponent/CategoryData/AddCategory/AddCategory";
 import ViewCategory from "../../PageComponent/CategoryData/ViewCategory/ViewCategory";
-// import SecondaryHeader from "../../UI/SecondaryHeader/SecondaryHeader";
+import SecondaryHeader from "../../UI/SecondaryHeader/SecondartHeader";
 
 function Category() {
   const [showData, setShowData] = useState("Add");
@@ -10,13 +10,13 @@ function Category() {
   };
   return (
     <div>
-      {/* <SecondaryHeader
+      <SecondaryHeader
         setShowData={setShowData}
         showData={showData}
         addBtn="AddCategory"
         viewBtn="ViewCategory"
         SearchText={SearchText}
-      /> */}
+      />
       {showData === "Add" ? <AddCategory /> : <ViewCategory />}
     </div>
   );

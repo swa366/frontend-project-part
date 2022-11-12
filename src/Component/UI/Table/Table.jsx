@@ -7,8 +7,8 @@ function Table({ Head, children, height }) {
         height === "billing"
           ? "h-64 "
           : height === "no data in form"
-          ? "h-20"
-          : "h-[170px]"
+          ? "h-fit"
+          : "h-fit"
       } overflow-y-auto scroll`}
     >
       <table

@@ -93,7 +93,7 @@ function LeftDashboardSection() {
       <div className=" capitalize font-semibold text-xl text-gray-700">
         GoodMorning 
       </div>
-      <div className="my-3 grid grid-cols-4 gap-4 ">
+      {/* <div className="my-3 grid grid-cols-4 gap-4 ">
         {card.map((val, i) => {
           return (
             <Link to={`/dashboard/${val.title}`}>
@@ -111,7 +111,7 @@ function LeftDashboardSection() {
             </Link>
           );
         })}
-      </div>
+      </div> */}
       <div className="  border-b border-gray-300  my-8"></div>{" "}
       <div>
         <div className="flex justify-between items-center">

@@ -50,7 +50,7 @@ function ViewBrand({ showBrand, searchText, getBrand, Tbody }) {
           return (
             <tr key={i} className=" w-full">
               <td className="border-b p-2 text-center border-l"> {i + 1}</td>
-              <td className="border-b p-2 text-center">{val.Brand_name}</td>
+              <td className="border-b p-2 text-center">{val.brand_name}</td>
               <td className="border-b p-2 ">
                 <div className="flex justify-center   ">
                   <img
